@@ -6,6 +6,7 @@ import com.udpt.userprofile.entity.UserProfile;
 import com.udpt.userprofile.service.UserProfileService;
 import com.udpt.userprofile.vo.ResponseVO;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/user-profiles")
+@Slf4j
 public class UserProfileController {
     private final UserProfileService userProfileService;
 
@@ -30,8 +32,9 @@ public class UserProfileController {
 
     @GetMapping("/{id}")
     public ResponseVO<UserProfile> getUserProfile(@PathVariable UUID id) {
+        log.info("Get user with ID: {}", id);
        UserProfile userProfile = userProfileService.getUserProfileById(id);
-        return new ResponseVO<>("SUCCESS", "Get user with ID " + id + " successfully", userProfile);
+       return new ResponseVO<>("SUCCESS", "Get user with ID " + id + " successfully", userProfile);
     }
 
     @PostMapping

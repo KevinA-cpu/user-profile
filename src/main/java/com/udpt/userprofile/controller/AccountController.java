@@ -10,6 +10,7 @@ import com.udpt.userprofile.service.AccountService;
 import com.udpt.userprofile.service.UserProfileService;
 import com.udpt.userprofile.vo.ResponseVO;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/accounts")
+@Slf4j
 public class AccountController {
     private final UserProfileService userProfileService;
     private final AccountService accountService;
@@ -40,6 +42,7 @@ public class AccountController {
     @PostMapping("/login")
     public ResponseVO<LoginResponse> login(@Valid @RequestBody LoginDto loginDto){
         LoginResponse loginResponse = accountService.login(loginDto);
+        log.info("Login successfully with login response: {}", loginResponse);
         return new ResponseVO<>("LOGIN", "Login successfully", loginResponse);
     }
 
